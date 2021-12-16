@@ -39,9 +39,9 @@ At least **10 thousand** drivers’ concurrencies.
 ### Data Flow
 
 1. Driver's mobile app send real-time event data to web application hosted on EC2 instances.
-2. Web application accept then read-time event data and sent it to Amazon Kinesis Data Stream.
-3. Amazon Kinesis Data Analystic for Java Application retrieve data from Kinesis Data Stream to do 10 minutes time window Map-Reduce data process, and save the transformed data to Amazon OpenSearch Service (real-time data index) and Amazon S3.
-4. Amazon SageMaker retrieve the transformed data from S3. Use DeepAR algorithm to train the time series based data and save the forecasting time series data to Amazon OpenSearch Service (forecasting data index).
+2. Web application accept then real-time event data and sent it to Amazon Kinesis Data Stream.
+3. Amazon Kinesis Data Analystic for Java Application retrieve data from Kinesis Data Stream to do 10 minutes time window Map-Reduce data process, and save the transformed data to Amazon OpenSearch Service (real-time data index) and Amazon S3 bucket.
+4. Amazon Event Bridge trigger a daily job to launch Amazon SageMaker to retrieve the transformed data from Amazon S3 bucket, use DeepAR algorithm to train the time series based data and save the forecasting time series data to Amazon OpenSearch Service (forecasting data index).
 5. End users signin the portal web application hosted on EC2 instances (The user identity is managed by Amazon Cognito) to do some trend analysis. The web application accepts the user requests, retrieve data from OpenSearch Service, generates charts, and displays them to users.
 
 
